@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import TaskSearch from './components/TaskSearch';
+import TaskStats from './components/TaskStats';
 import squiggly from './assets/sssquiggly.svg'
 
 interface Task {
@@ -90,89 +91,39 @@ const App = () => {
   }, [tasks, filterType, searchQuery]);
     
   return (
-    <div className="relative min-h-screen bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-blue-700 via-blue-800 to-gray-900 py-8 px-4">
-      <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-r from-slate-900 to-slate-700 py-8 px-4">
+      <div className="fixed inset-0 z-0 overflow-hidden">
         <img
           src={squiggly}
-          className="absolute w-full h-full object-cover opacity-30"
-          alt=""
-          aria-hidden="true"
+          className="absolute w-full h-full object-cover opacity-70"
         />
       </div>
       <div className="container mx-auto max-w-4xl">
         <div className="space-y-0 md:space-y-8">
-          {/* Заголовок */}
-          <h1 className="text-5xl font-light text-center text-white
-                       tracking-tight drop-shadow-lg
-                       transform hover:scale-105 transition-transform duration-300">
+          <h1 className="text-5xl font-light text-center text-white tracking-tight drop-shadow-lg transform hover:scale-105 transition-transform duration-300">
             <span className="hidden md:block bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-600">
               TO-DO LIST
             </span>
           </h1>
 
-          {/* Основной контент */}
-          <div className="backdrop-blur-sm bg-white/90 rounded-2xl 
-                        shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]
-                        p-8 space-y-8">
+          <div className="backdrop-blur-sm bg-white/90 rounded-2xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] p-8 space-y-8">
             
-            {/* Форма добавления */}
             <div>
               <TaskForm onAddTask={handleAddTask} />
             </div>
-
+  
             {/* Поиск */}
             <div>
               <TaskSearch onSearch={handleSearch} />
             </div>
-
-{/* Статистика */}
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-  <div 
-    className="bg-blue-50 rounded-xl p-4 text-center transition-transform hover:scale-105 cursor-pointer"
-    onClick={() => setFilterType('all')}
-  >
-    <span className="block text-2xl font-bold text-blue-600">
-      {tasks.length}
-    </span>
-    <span className={`text-sm text-blue-500 ${filterType === 'all' ? 'font-bold' : ''}`}>
-      Total
-    </span>
-  </div>
-  <div 
-    className="bg-green-50 rounded-xl p-4 text-center transition-transform hover:scale-105 cursor-pointer"
-    onClick={() => setFilterType('completed')}
-  >
-    <span className="block text-2xl font-bold text-green-600">
-      {tasks.filter(task => task.completed).length}
-    </span>
-    <span className={`text-sm text-green-500 ${filterType === 'completed' ? 'font-bold' : ''}`}>
-      Completed
-    </span>
-  </div>
-  <div 
-    className="bg-orange-50 rounded-xl p-4 text-center transition-transform hover:scale-105 cursor-pointer"
-    onClick={() => setFilterType('uncompleted')}
-  >
-    <span className="block text-2xl font-bold text-orange-600">
-      {tasks.filter(task => !task.completed).length}
-    </span>
-    <span className={`text-sm text-orange-500 ${filterType === 'uncompleted' ? 'font-bold' : ''}`}>
-      Not Completed
-    </span>
-  </div>
-  <div 
-    className="bg-purple-50 rounded-xl p-4 text-center transition-transform hover:scale-105 cursor-pointer"
-    onClick={() => setFilterType('important')}
-  >
-    <span className="block text-2xl font-bold text-purple-600">
-      {tasks.filter(task => task.important).length}
-    </span>
-    <span className={`text-sm text-purple-500 ${filterType === 'important' ? 'font-bold' : ''}`}>
-      Important
-    </span>
-  </div>
-</div>
-
+  
+            {/* Фильтр */}
+            <TaskStats 
+              tasks={tasks}
+              filterType={filterType}
+              setFilterType={setFilterType}
+            />
+  
             {/* Список задач */}
             <div className="animate-slide-up">
               {filteredTasks.length > 0 ? (
@@ -205,10 +156,9 @@ const App = () => {
               )}
             </div>
           </div>
-
-          {/* Подвал */}
+  
           <footer className="text-center text-white/80 text-sm">
-            <p>Created with ❤️  {new Date().getFullYear()}</p>
+            <p>Created with ❤️ {new Date().getFullYear()}</p>
           </footer>
         </div>
       </div>

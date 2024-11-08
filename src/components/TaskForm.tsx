@@ -19,11 +19,10 @@ const TaskForm = ({ onAddTask }: TaskFormProps) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    if (newValue.length <= MAX_TASK_LENGTH) {
-      setTask(newValue);
-    }
+    const newValue = e.target.value.slice(0, MAX_TASK_LENGTH);
+    setTask(newValue);
   };
+  
 
   return (
     <div className="flex flex-col gap-2">

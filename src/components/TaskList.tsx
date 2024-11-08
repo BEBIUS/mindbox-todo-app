@@ -30,7 +30,7 @@ const TaskList = ({ tasks, onToggleComplete, onToggleImportant, onDeleteTask }: 
                 >
                     {/* Контейнер для содержимого */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        {/* Текст задачи */}
+
                         <span
                             className={`
                                 cursor-pointer select-none
@@ -46,7 +46,7 @@ const TaskList = ({ tasks, onToggleComplete, onToggleImportant, onDeleteTask }: 
 
                         {/* Кнопки действий */}
                         <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
-                            {/* Кнопка важности */}
+
                             <button
                                 onClick={() => onToggleImportant(task.id)}
                                 className={`
@@ -61,7 +61,6 @@ const TaskList = ({ tasks, onToggleComplete, onToggleImportant, onDeleteTask }: 
                                 {task.important ? '⭐' : '☆'}
                             </button>
 
-                            {/* Кнопка удаления */}
                             <button
                                 onClick={() => onDeleteTask(task.id)}
                                 className={`
@@ -71,7 +70,7 @@ const TaskList = ({ tasks, onToggleComplete, onToggleImportant, onDeleteTask }: 
                                     hover:bg-red-50
                                     sm:opacity-0 sm:group-hover:opacity-100
                                 `}
-                                aria-label="Удалить задачу"
+                                aria-label="Delete task"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +95,7 @@ const TaskList = ({ tasks, onToggleComplete, onToggleImportant, onDeleteTask }: 
             {/* Сообщение, если нет задач */}
             {tasks.length === 0 && (
                 <li className="text-center py-8 text-gray-500">
-                    Список задач пуст
+                    The task list is empty
                 </li>
             )}
         </ul>
